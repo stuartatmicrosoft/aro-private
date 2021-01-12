@@ -87,7 +87,7 @@ echo "**************************************************************************
         sed -i "s/#Wayland/Wayland/g" /etc/gdm/custom.conf
 	systemctl set-default graphical.target >> /root/provision-script-output.log
 	systemctl isolate graphical.target >> /root/provision-script-output.log
-	echo ":4=aroadmin" >> /etc/tigervnc/vncserver.users
+	echo ":1=aroadmin" >> /etc/tigervnc/vncserver.users
 echo "********************************************************************************************"
 	echo "`date` -- Installing noVNC environment" >>/root/provision-script-output.log
         pip-3.6 install numpy websockify >>/root/provision-script-output.log
@@ -98,19 +98,19 @@ echo "**************************************************************************
         tar xvfz v1.1.0.tar.gz
         ln -s /usr/local/noVNC-1.1.0/vnc.html /usr/local/noVNC-1.1.0/index.html
         wget --quiet -P /etc/systemd/system https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/websockify.service
-	wget --quiet --no-check-certificate -P /etc/systemd/system "https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver@:4.service"
+#	wget --quiet --no-check-certificate -P /etc/systemd/system "https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver@:4.service"
 	openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/pki/tls/certs/novnc.pem -out /etc/pki/tls/certs/novnc.pem -days 365 -subj "/C=US/ST=Michigan/L=Ann Arbor/O=AROPrivate/OU=CloudNativeAzure/CN=microsoft.com"
 	su -c "mkdir .vnc" - aroadmin
 	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
-	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
+#	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
         chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
-        chown aroadmin:aroadmin /home/aroadmin/.vnc/xstartup
+#        chown aroadmin:aroadmin /home/aroadmin/.vnc/xstartup
         chmod 600 /home/aroadmin/.vnc/passwd
-        chmod 755 /home/aroadmin/.vnc/xstartup
+#        chmod 755 /home/aroadmin/.vnc/xstartup
 	iptables -I INPUT 1 -m tcp -p tcp --dport 6080 -j ACCEPT
 	service iptables save
 #        chmod 644 /etc/systemd/system/pm2-root.service
-        chmod 644 /etc/systemd/system/vncserver@\:4.service
+#        chmod 644 /etc/systemd/system/vncserver@\:4.service
         chmod 644 /etc/systemd/system/websockify.service
         systemctl daemon-reload
 #        systemctl enable vncserver@:4.service
