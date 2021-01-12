@@ -25,6 +25,8 @@ echo "**************************************************************************
 	echo "`date` -- Setting Root Password to 'Microsoft'" >>/root/provision-script-output.log
 	echo "Microsoft" | passwd --stdin root
 echo "********************************************************************************************"
+        sed -i "s/#Wayland/Wayland/g" /etc/gdm/custom.conf
+echo "********************************************************************************************"
 	echo "`date` -- Adding 'deltarpm' and other required RPMs" >>/root/provision-script-output.log
         sed -i "s/=enforcing/=disabled/g" /etc/selinux/config >>/root/provision-script-output.log
         setenforce 0 >>/root/provision-script-output.log
@@ -37,7 +39,7 @@ echo "**************************************************************************
 #        echo "DEVELOPMENT INSTALL" >> /root/dnf-output.log
 #        dnf -y install @development >> /root/dnf-output.log
         echo "REQUIRED RPM INSTALL" >> /root/dnf-output.log
-        dnf -y install python3-pip openssl-devel iptables arptables iptables-services telnet tigervnc-server tigervnc >> /root/dnf-output.log
+        dnf -y install python3-pip openssl-devel iptables arptables iptables-services telnet tigervnc-server tigervnc tigervnc-server-module >> /root/dnf-output.log
         echo "SERVER W GUI INSTALL" >> /root/dnf-output.log
         dnf -y groupinstall "Server with GUI" >> /root/dnf-output.log
 #        echo "REMOVE" >> /root/dnf-output.log
@@ -85,6 +87,8 @@ echo "**************************************************************************
 echo "********************************************************************************************"	
 	echo "`date` -- Setting default systemd target to graphical.target" >>/root/provision-script-output.log
 	systemctl set-default graphical.target >> /root/provision-script-output.log
+	systemctl isolate graphical.target >> /root/provision-script-output.log
+	echo ":4=aroadmin" >> /etc/tigervnc/vncserver.users
 echo "********************************************************************************************"
 	echo "`date` -- Installing noVNC environment" >>/root/provision-script-output.log
         pip-3.6 install numpy websockify >>/root/provision-script-output.log
