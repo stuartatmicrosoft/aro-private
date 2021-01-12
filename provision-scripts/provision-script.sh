@@ -82,6 +82,7 @@ echo "**************************************************************************
 	rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
 	dnf -y install azure-cli >> /root/dnf-output.log
+	dnf -y update >> /root/dnf-output.log
 echo "********************************************************************************************"	
 	echo "`date` -- Setting default systemd target to graphical.target" >>/root/provision-script-output.log
         sed -i "s/#Wayland/Wayland/g" /etc/gdm/custom.conf
