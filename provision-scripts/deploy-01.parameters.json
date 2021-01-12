@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "virtualMachineName": {
-      "value": "aro-jumpbox"
+      "value": "aro-jumpbox-vm"
     },
     "virtualMachineSize": {
       "value": "Standard_D4s_v3"
