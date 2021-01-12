@@ -37,15 +37,15 @@ echo "**************************************************************************
 #        echo "DEVELOPMENT INSTALL" >> /root/dnf-output.log
 #        dnf -y install @development >> /root/dnf-output.log
         echo "REQUIRED RPM INSTALL" >> /root/dnf-output.log
-        dnf -y install python2-devel python2-pip libxslt-devel libffi-devel openssl-devel iptables arptables ebtables iptables-services telnet nodejs npm tigervnc-server tigervnc >> /root/dnf-output.log
+        dnf -y install python3-pip openssl-devel iptables arptables iptables-services telnet tigervnc-server tigervnc >> /root/dnf-output.log
         echo "SERVER W GUI INSTALL" >> /root/dnf-output.log
         dnf -y groupinstall "Server with GUI" >> /root/dnf-output.log
-        echo "REMOVE" >> /root/dnf-output.log
-        dnf -y remove rhn-check rhn-client-tools rhn-setup rhnlib rhnsd dnf-rhn-plugin subscription-manager >> /root/dnf-output.log
+#        echo "REMOVE" >> /root/dnf-output.log
+#        dnf -y remove rhn-check rhn-client-tools rhn-setup rhnlib rhnsd dnf-rhn-plugin subscription-manager >> /root/dnf-output.log
 #        echo "FULL UPDATE" >> /root/dnf-output.log
 #        dnf -y update >> /root/dnf-output.log
         echo "aroadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-        alternatives --set python /usr/bin/python2
+#        alternatives --set python /usr/bin/python2
 #        cd /usr/bin
 #        curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 #        chmod 755 /usr/bin/kubectl
@@ -87,9 +87,9 @@ echo "**************************************************************************
 	systemctl set-default graphical.target >> /root/provision-script-output.log
 echo "********************************************************************************************"
 	echo "`date` -- Installing noVNC environment" >>/root/provision-script-output.log
-        pip-2.7 install numpy websockify >>/root/provision-script-output.log
-        chmod -R a+rx /usr/lib64/python2.7/site-packages/numpy*
-        chmod -R a+rx /usr/lib/python2.7/site-packages/websockify*
+        pip-3.6 install numpy websockify >>/root/provision-script-output.log
+        chmod -R a+rx /usr/lib64/python3.6/site-packages/numpy*
+        chmod -R a+rx /usr/lib/python3.6/site-packages/websockify*
         wget --quiet -P /usr/local https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz
         cd /usr/local
         tar xvfz v1.1.0.tar.gz
