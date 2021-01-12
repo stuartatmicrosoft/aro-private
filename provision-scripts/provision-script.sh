@@ -25,8 +25,6 @@ echo "**************************************************************************
 	echo "`date` -- Setting Root Password to 'Microsoft'" >>/root/provision-script-output.log
 	echo "Microsoft" | passwd --stdin root
 echo "********************************************************************************************"
-        sed -i "s/#Wayland/Wayland/g" /etc/gdm/custom.conf
-echo "********************************************************************************************"
 	echo "`date` -- Adding 'deltarpm' and other required RPMs" >>/root/provision-script-output.log
         sed -i "s/=enforcing/=disabled/g" /etc/selinux/config >>/root/provision-script-output.log
         setenforce 0 >>/root/provision-script-output.log
@@ -86,6 +84,7 @@ echo "**************************************************************************
 	dnf -y install azure-cli >> /root/dnf-output.log
 echo "********************************************************************************************"	
 	echo "`date` -- Setting default systemd target to graphical.target" >>/root/provision-script-output.log
+        sed -i "s/#Wayland/Wayland/g" /etc/gdm/custom.conf
 	systemctl set-default graphical.target >> /root/provision-script-output.log
 	systemctl isolate graphical.target >> /root/provision-script-output.log
 	echo ":4=aroadmin" >> /etc/tigervnc/vncserver.users
