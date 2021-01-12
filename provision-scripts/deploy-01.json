@@ -2,6 +2,9 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+	"virtualMachineName": {
+            "type": "string"
+	},
         "virtualMachineSize": {
             "type": "string"
         },
@@ -60,7 +63,6 @@
     "variables": {
         "tenantId": "[subscription().tenantId]",
         "subscriptionId": "[subscription().subscriptionId]",
-	"vmName": "aro-jumpbox-vm",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
         "jumpVMPublicIpName": "[concat('aro-private-jumpbox-vmip-', uniqueString(resourceGroup().id))]",
@@ -85,12 +87,12 @@
     },
 	{
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[variables('vmName')]",
+            "name": "[parameters('virtualMachineName')]",
             "apiVersion": "2016-04-30-preview",
             "location": "[resourceGroup().location]",
             "properties": {
                 "osProfile": {
-                    "computerName": "[variables('vmName')]",
+                    "computerName": "[parameters('virtualMachineName')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]",
 		    "linuxConfiguration": {
@@ -257,11 +259,11 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('vmName'),'/mycustomscriptextension')]",
+            "name": "[concat(paremeters('virtualMachineName'),'/mycustomscriptextension')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
+                "[concat('Microsoft.Compute/virtualMachines/',parameters('virtualMachineName'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Azure.Extensions",
