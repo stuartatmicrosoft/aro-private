@@ -20,30 +20,30 @@ echo "**************************************************************************
 	echo "Microsoft" | passwd --stdin aroadmin
 echo "********************************************************************************************"
 	echo "`date` -- Adding aroadmin to wheel group for sudo access'" >>/root/provision-script-output.log
-	usermod -G wheel aroadmin
+	usermod -G wheel aroadmin >>/root/provision-script-output.log
 echo "********************************************************************************************"
 	echo "`date` -- Setting Root Password to 'Microsoft'" >>/root/provision-script-output.log
 	echo "Microsoft" | passwd --stdin root
 echo "********************************************************************************************"
 	echo "`date` -- Adding 'deltarpm' and other required RPMs" >>/root/provision-script-output.log
-        sed -i "s/=enforcing/=disabled/g" /etc/selinux/config
-        setenforce 0
-        echo "plugins=0" >> /etc/dnf/dnf.conf
+        sed -i "s/=enforcing/=disabled/g" /etc/selinux/config >>/root/provision-script-output.log
+        setenforce 0 >>/root/provision-script-output.log
+        echo "plugins=0" >> /etc/dnf/dnf.conf 
         sed -i "s/remove=True/remove=False/g" /etc/dnf/dnf.conf
         echo "DRPM INSTALL" >> /root/yum-output.log
         yum -y install drpm >> /root/yum-output.log
-        echo "PYTHON27 INSTALL" >> /root/yum-output.log
-        yum -y install @python27 >> /root/yum-output.log
-        echo "DEVELOPMENT INSTALL" >> /root/yum-output.log
-        yum -y install @development >> /root/yum-output.log
+#        echo "PYTHON27 INSTALL" >> /root/yum-output.log
+#        yum -y install @python27 >> /root/yum-output.log
+#        echo "DEVELOPMENT INSTALL" >> /root/yum-output.log
+#        yum -y install @development >> /root/yum-output.log
         echo "REQUIRED RPM INSTALL" >> /root/yum-output.log
         yum -y install python2-devel python2-pip libxslt-devel libffi-devel openssl-devel iptables arptables ebtables iptables-services telnet nodejs npm tigervnc-server tigervnc >> /root/yum-output.log
         echo "SERVER W GUI INSTALL" >> /root/yum-output.log
         yum -y group install "Server with GUI" -x file-roller* -x subscription-manager* -x dnf-plugin-subscription* -x libstoragemgmt* >> /root/yum-output.log
         echo "REMOVE" >> /root/yum-output.log
         yum -y remove rhn-check rhn-client-tools rhn-setup rhnlib rhnsd yum-rhn-plugin subscription-manager >> /root/yum-output.log
-        echo "FULL UPDATE" >> /root/yum-output.log
-        yum -y update >> /root/yum-output.log
+#        echo "FULL UPDATE" >> /root/yum-output.log
+#        yum -y update >> /root/yum-output.log
         echo "aroadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         alternatives --set python /usr/bin/python2
 #        cd /usr/bin
@@ -52,14 +52,14 @@ echo "**************************************************************************
 echo "********************************************************************************************"
 	echo "`date` -- Securing host and changing default SSH port to 2112" >>/root/provision-script-output.log
 	sed -i "s/dport 22/dport 2112/g" /etc/sysconfig/iptables
-	semanage port -a -t ssh_port_t -p tcp 2112
+	semanage port -a -t ssh_port_t -p tcp 2112 >>/root/provision-script-output.log
 	sed -i "s/#Port 22/Port 2112/g" /etc/ssh/sshd_config
-	systemctl restart sshd
-	systemctl stop firewalld
-	systemctl disable firewalld
-	systemctl mask firewalld
-	systemctl enable iptables
-	systemctl start iptables	
+	systemctl restart sshd >>/root/provision-script-output.log
+	systemctl stop firewalld >>/root/provision-script-output.log
+	systemctl disable firewalld >>/root/provision-script-output.log
+	systemctl mask firewalld >>/root/provision-script-output.log
+	systemctl enable iptables >>/root/provision-script-output.log
+	systemctl start iptables >>/root/provision-script-output.log
 echo "********************************************************************************************"
 #        echo "`date` -- Upgrading PIP and installing Ansible" >>/root/provision-script-output.log
 #        runuser -l aroadmin -c "pip-2.7 install --upgrade --user python-dateutil"
@@ -87,7 +87,7 @@ echo "**************************************************************************
 	systemctl set-default graphical.target >> /root/provision-script-output.log
 echo "********************************************************************************************"
 	echo "`date` -- Installing noVNC environment" >>/root/provision-script-output.log
-        pip-2.7 install numpy websockify
+        pip-2.7 install numpy websockify >>/root/provision-script-output.log
         chmod -R a+rx /usr/lib64/python2.7/site-packages/numpy*
         chmod -R a+rx /usr/lib/python2.7/site-packages/websockify*
         wget --quiet -P /usr/local https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz
