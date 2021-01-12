@@ -2,9 +2,6 @@
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "virtualMachineName": {
-            "type": "string"
-        },
         "virtualMachineSize": {
             "type": "string"
         },
@@ -63,6 +60,7 @@
     "variables": {
         "tenantId": "[subscription().tenantId]",
         "subscriptionId": "[subscription().subscriptionId]",
+	"vmName": "aro-jumpbox-vm",
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
         "jumpVMPublicIpName": "[concat('aro-private-jumpbox-vmip-', uniqueString(resourceGroup().id))]",
@@ -87,12 +85,12 @@
     },
 	{
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[parameters('virtualMachineName')]",
+            "name": "[variables('vmName')]",
             "apiVersion": "2016-04-30-preview",
             "location": "[resourceGroup().location]",
             "properties": {
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachineName')]",
+                    "computerName": "[variables('vmName')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]",
 		    "linuxConfiguration": {
@@ -259,11 +257,11 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(parameters('virtualMachineName'),'/mycustomscriptextension')]",
+            "name": "[concat(variables('vmName'),'/mycustomscriptextension')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',parameters('virtualMachineName'))]"
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Azure.Extensions",
