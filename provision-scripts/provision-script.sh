@@ -88,8 +88,8 @@ echo "**************************************************************************
 echo "********************************************************************************************"
 	echo "`date` -- Installing noVNC environment" >>/root/provision-script-output.log
         pip-3.6 install numpy websockify >>/root/provision-script-output.log
-        chmod -R a+rx /usr/lib64/python3.6/site-packages/numpy*
-        chmod -R a+rx /usr/lib/python3.6/site-packages/websockify*
+	chmod -R a+rx /usr/local/lib64/python3.6/site-packages/numpy*
+	chmod -R a+rx /usr/local/lib/python3.6/site-packages/websockify*
         wget --quiet -P /usr/local https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz
         cd /usr/local
         tar xvfz v1.1.0.tar.gz
