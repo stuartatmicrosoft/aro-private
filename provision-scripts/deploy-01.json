@@ -281,15 +281,15 @@
 //                }
 //            }
 //        }
-    ]
-//    "outputs": {
-//        "vncServerURL": {
-//            "value": "[concat('http://', reference(resourceId('Microsoft.Network/publicIPAddresses', variables('jumpVMPublicIpName'))).dnsSettings.fqdn, ':6080')]",
-//            "type": "string"
-//        },
-//        "Password": {
-//            "type": "string",
-//            "value": "Microsoft"
-//        }
-//    }
+//    ],
+    "outputs": {
+        "vncServerURL": {
+            "value": "[concat('http://', reference(resourceId('Microsoft.Network/publicIPAddresses', variables('jumpVMPublicIpName'))).dnsSettings.fqdn, ':6080')]",
+            "type": "string"
+        },
+        "Password": {
+            "type": "string",
+            "value": "Microsoft"
+        }
+    }
 }
