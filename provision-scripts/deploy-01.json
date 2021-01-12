@@ -259,11 +259,11 @@
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(paremeters('virtualMachineName'),'/mycustomscriptextension')]",
+            "name": "[concat(variables('vmName'),'/mycustomscriptextension')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/',parameters('virtualMachineName'))]"
+                "[concat('Microsoft.Compute/virtualMachines/',variables('vmName'))]"
             ],
             "properties": {
                 "publisher": "Microsoft.Azure.Extensions",
