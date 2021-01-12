@@ -9,7 +9,7 @@
       "value": "Standard_D4s_v3"
     },
     "adminUsername": {
-      "value": "stkirk"
+      "value": "aroadmin"
     },
     "adminPublicKey": {
       "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC85TmNfF+G5Mc9LPL9pztyoiwJ3wp/YQu0WKXWJZVFgkdCZRM9zJiTpmtUF69Q5kjzVKEv892vhLIX8WFcGQ8+4EDRBh1HawB4lHi6bGQoSC/pmmrXxw7erjDMiG4SXXNqUZlzYkjgxsnx0Yn0bySIG3Jw+b0C0EG5JNpt/S1/tYlXIyv1oDA1GdrGwmmpegaMb6t492t9xk5rmnenklxgqrTgfkMnYM6JQqW5lrOmUvACgQBnoVwE/2Gklgv6Cd1ozKkupV3OPudDmpoAN2Po1GA+835Ksu1R0DxSrMjU1Y8KCCekf8jPiu/PtszzDa1pWVAU/f0p0TzUXKIIh5eJ stkirk@stkirk-fedora"
