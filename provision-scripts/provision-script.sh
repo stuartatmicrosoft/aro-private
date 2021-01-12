@@ -1,13 +1,13 @@
 #!/bin/bash
 
-AZ_USER_NAME=${1}
-AZ_USER_PASSWORD=${2}
-AZ_TENANT_ID=${3}
-AZ_SUBSCRIPTION_ID=${4}
-SP_NAME=${5}
-SP_SECRET=${6}
-SP_OBJECT_ID=${7}
-SP_APP_ID=${8}
+#AZ_USER_NAME=${1}
+#AZ_USER_PASSWORD=${2}
+#AZ_TENANT_ID=${3}
+#AZ_SUBSCRIPTION_ID=${4}
+#SP_NAME=${5}
+#SP_SECRET=${6}
+#SP_OBJECT_ID=${7}
+#SP_APP_ID=${8}
 
 echo "`date` --BEGIN-- Provision Stage 1 Script" >>/root/provision-script-output.log
 echo "********************************************************************************************"
@@ -46,9 +46,9 @@ echo "**************************************************************************
         yum -y update >> /root/yum-output.log
         echo "aroadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         alternatives --set python /usr/bin/python2
-        cd /usr/bin
-        curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-        chmod 755 /usr/bin/kubectl
+#        cd /usr/bin
+#        curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+#        chmod 755 /usr/bin/kubectl
 echo "********************************************************************************************"
 	echo "`date` -- Securing host and changing default SSH port to 2112" >>/root/provision-script-output.log
 	sed -i "s/dport 22/dport 2112/g" /etc/sysconfig/iptables
@@ -106,14 +106,14 @@ echo "**************************************************************************
         chmod 755 /home/aroadmin/.vnc/xstartup
 	iptables -I INPUT 1 -m tcp -p tcp --dport 6080 -j ACCEPT
 	service iptables save
-        chmod 644 /etc/systemd/system/pm2-root.service
+#        chmod 644 /etc/systemd/system/pm2-root.service
         chmod 644 /etc/systemd/system/vncserver@\:4.service
         chmod 644 /etc/systemd/system/websockify.service
         systemctl daemon-reload
-        systemctl enable vncserver@:4.service
-        systemctl enable websockify.service
-        systemctl start vncserver@:4.service
-	systemctl start websockify.service
+#        systemctl enable vncserver@:4.service
+#        systemctl enable websockify.service
+#        systemctl start vncserver@:4.service
+#	systemctl start websockify.service
 echo "********************************************************************************************"
 #	echo "`date` -- Editing aroadmin's .bashrc and disabling Red Hat alerts" >> /root/provision-script-output.log
 #	echo " " >> /home/aroadmin/.bashrc
@@ -127,12 +127,12 @@ echo "**************************************************************************
         mkdir -p /home/aroadmin/.local/share/keyrings
 	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
         chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
-        restorecon /home/aroadmin/.local/share/keyrings/Default.keyring
-echo "********************************************************************************************"
         chown -R aroadmin:aroadmin /home/aroadmin/.local
         chmod a+rx /home/aroadmin/.local
+        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
+echo "********************************************************************************************"
         cd /usr/local/bin
-        wget -P /usr/local/bin https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/oc.tar.gz
+	wget -P /usr/local/bin http://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
         tar xvfz oc.tar.gz
         rm -f oc.tar.gz
 echo "********************************************************************************************"
@@ -143,14 +143,16 @@ echo "`date` Creating Student Desktop Credentials File" >>/root/provision-script
 
 mkdir /home/aroadmin/Desktop
 chown aroadmin:aroadmin /home/aroadmin/Desktop
-echo AZURE_USER_NAME=$AZ_USER_NAME >> /home/aroadmin/Desktop/credentials.txt
-echo AZURE_USER_PASSWORD=$AZ_USER_PASSWORD >> /home/aroadmin/Desktop/credentials.txt
-echo AZURE_CLIENT_ID=$SP_APP_ID >> /home/aroadmin/Desktop/credentials.txt
-echo AZURE_SECRET=$SP_SECRET >> /home/aroadmin/Desktop/credentials.txt
-echo AZURE_SUBSCRIPTION_ID=$AZ_SUBSCRIPTION_ID >> /home/aroadmin/Desktop/credentials.txt
-echo AZURE_TENANT_ID=$AZ_TENANT_ID >> /home/aroadmin/Desktop/credentials.txt
-echo GUIDE_URL=https://github.com/stuartatmicrosoft/aro-private >> /home/aroadmin/Desktop/credentials.txt
-chown aroadmin:aroadmin /home/aroadmin/Desktop/credentials.txt
+#echo AZURE_USER_NAME=$AZ_USER_NAME >> /home/aroadmin/Desktop/credentials.txt
+#echo AZURE_USER_PASSWORD=$AZ_USER_PASSWORD >> /home/aroadmin/Desktop/credentials.txt
+#echo AZURE_CLIENT_ID=$SP_APP_ID >> /home/aroadmin/Desktop/credentials.txt
+#echo AZURE_SECRET=$SP_SECRET >> /home/aroadmin/Desktop/credentials.txt
+#echo AZURE_SUBSCRIPTION_ID=$AZ_SUBSCRIPTION_ID >> /home/aroadmin/Desktop/credentials.txt
+#echo AZURE_TENANT_ID=$AZ_TENANT_ID >> /home/aroadmin/Desktop/credentials.txt
+#echo GUIDE_URL=https://github.com/stuartatmicrosoft/aro-private >> /home/aroadmin/Desktop/credentials.txt
+#chown aroadmin:aroadmin /home/aroadmin/Desktop/credentials.txt
 
 echo "`date` --END-- Provision Script" >>/root/provision-script-output.log
+
+exit 0
 
