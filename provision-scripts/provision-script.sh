@@ -30,20 +30,20 @@ echo "**************************************************************************
         setenforce 0 >>/root/provision-script-output.log
         echo "plugins=0" >> /etc/dnf/dnf.conf 
         sed -i "s/remove=True/remove=False/g" /etc/dnf/dnf.conf
-        echo "DRPM INSTALL" >> /root/yum-output.log
-        yum -y install drpm >> /root/yum-output.log
-#        echo "PYTHON27 INSTALL" >> /root/yum-output.log
-#        yum -y install @python27 >> /root/yum-output.log
-#        echo "DEVELOPMENT INSTALL" >> /root/yum-output.log
-#        yum -y install @development >> /root/yum-output.log
-        echo "REQUIRED RPM INSTALL" >> /root/yum-output.log
-        yum -y install python2-devel python2-pip libxslt-devel libffi-devel openssl-devel iptables arptables ebtables iptables-services telnet nodejs npm tigervnc-server tigervnc >> /root/yum-output.log
-        echo "SERVER W GUI INSTALL" >> /root/yum-output.log
-        yum -y group install "Server with GUI" -x file-roller* -x subscription-manager* -x dnf-plugin-subscription* -x libstoragemgmt* >> /root/yum-output.log
-        echo "REMOVE" >> /root/yum-output.log
-        yum -y remove rhn-check rhn-client-tools rhn-setup rhnlib rhnsd yum-rhn-plugin subscription-manager >> /root/yum-output.log
-#        echo "FULL UPDATE" >> /root/yum-output.log
-#        yum -y update >> /root/yum-output.log
+        echo "DRPM INSTALL" >> /root/dnf-output.log
+        dnf -y install drpm >> /root/dnf-output.log
+#        echo "PYTHON27 INSTALL" >> /root/dnf-output.log
+#        dnf -y install @python27 >> /root/dnf-output.log
+#        echo "DEVELOPMENT INSTALL" >> /root/dnf-output.log
+#        dnf -y install @development >> /root/dnf-output.log
+        echo "REQUIRED RPM INSTALL" >> /root/dnf-output.log
+        dnf -y install python2-devel python2-pip libxslt-devel libffi-devel openssl-devel iptables arptables ebtables iptables-services telnet nodejs npm tigervnc-server tigervnc >> /root/dnf-output.log
+        echo "SERVER W GUI INSTALL" >> /root/dnf-output.log
+        dnf -y groupinstall "Server with GUI" >> /root/dnf-output.log
+        echo "REMOVE" >> /root/dnf-output.log
+        dnf -y remove rhn-check rhn-client-tools rhn-setup rhnlib rhnsd dnf-rhn-plugin subscription-manager >> /root/dnf-output.log
+#        echo "FULL UPDATE" >> /root/dnf-output.log
+#        dnf -y update >> /root/dnf-output.log
         echo "aroadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
         alternatives --set python /usr/bin/python2
 #        cd /usr/bin
@@ -81,7 +81,7 @@ echo "**************************************************************************
 	echo "`date` -- Installing the Azure Linux CLI" >>/root/provision-script-output.log
 	rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
-	yum -y install azure-cli >> /root/yum-output.log
+	dnf -y install azure-cli >> /root/dnf-output.log
 echo "********************************************************************************************"	
 	echo "`date` -- Setting default systemd target to graphical.target" >>/root/provision-script-output.log
 	systemctl set-default graphical.target >> /root/provision-script-output.log
