@@ -40,8 +40,8 @@ echo "**************************************************************************
         dnf -y install python3-pip openssl-devel iptables arptables iptables-services telnet tigervnc-server tigervnc tigervnc-server-module >> /root/dnf-output.log
         echo "SERVER W GUI INSTALL" >> /root/dnf-output.log
         dnf -y groupinstall "Server with GUI" >> /root/dnf-output.log
-        echo "REMOVE" >> /root/dnf-output.log
-        dnf -y remove rhn-client-tools subscription-manager flatpak >> /root/dnf-output.log
+#        echo "REMOVE" >> /root/dnf-output.log
+#        dnf -y remove rhn-client-tools subscription-manager flatpak >> /root/dnf-output.log
 #        echo "FULL UPDATE" >> /root/dnf-output.log
 #        dnf -y update >> /root/dnf-output.log
         echo "aroadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -132,7 +132,7 @@ echo "**************************************************************************
 #       su -c "gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true" - aroadmin
 	su -c "ssh-keygen -t rsa -q -P '' -f /home/aroadmin/.ssh/id_rsa" - aroadmin
 #        mkdir -p /home/aroadmin/.local/share/keyrings
-#	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
+#  	 wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
 #        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
 #        chown -R aroadmin:aroadmin /home/aroadmin/.local
 #        chmod a+rx /home/aroadmin/.local
