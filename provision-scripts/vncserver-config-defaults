@@ -1,6 +1,6 @@
 session=gnome-classic
 securitytypes=vncauth,tlsvnc
-desktop=ARO-Console
+desktop=sandbox
 geometry=1600x900
 localhost
 alwaysshared
