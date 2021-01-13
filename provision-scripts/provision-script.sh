@@ -41,7 +41,7 @@ echo "**************************************************************************
         echo "SERVER W GUI INSTALL" >> /root/dnf-output.log
         dnf -y groupinstall "Server with GUI" >> /root/dnf-output.log
 #        echo "REMOVE" >> /root/dnf-output.log
-#        dnf -y remove rhn-client-tools subscription-manager flatpak >> /root/dnf-output.log
+        dnf -y remove firefox rhn-client-tools subscription-manager flatpak >> /root/dnf-output.log
 #        echo "FULL UPDATE" >> /root/dnf-output.log
 #        dnf -y update >> /root/dnf-output.log
         echo "aroadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -142,12 +142,12 @@ echo "**************************************************************************
 #       su -c "gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true" - aroadmin
 	su -c "ssh-keygen -t rsa -q -P '' -f /home/aroadmin/.ssh/id_rsa" - aroadmin
 	su -c "gsettings set org.gnome.desktop.session idle-delay 0" - aroadmin
-        mkdir -p /home/aroadmin/.local/share/keyrings
-	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
-        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
+#        mkdir -p /home/aroadmin/.local/share/keyrings
+#	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
+#        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
         chown -R aroadmin:aroadmin /home/aroadmin/.local
         chmod a+rx /home/aroadmin/.local
-        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
+#        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
 echo "********************************************************************************************"
         cd /usr/local/bin
 	wget -P /usr/local/bin http://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
