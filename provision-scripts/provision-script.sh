@@ -40,8 +40,8 @@ echo "**************************************************************************
         dnf -y install python3-pip openssl-devel iptables arptables iptables-services telnet tigervnc-server tigervnc tigervnc-server-module >> /root/dnf-output.log
         echo "SERVER W GUI INSTALL" >> /root/dnf-output.log
         dnf -y groupinstall "Server with GUI" >> /root/dnf-output.log
-#        echo "REMOVE" >> /root/dnf-output.log
-#        dnf -y remove rhn-check rhn-client-tools rhn-setup rhnlib rhnsd dnf-rhn-plugin subscription-manager >> /root/dnf-output.log
+        echo "REMOVE" >> /root/dnf-output.log
+        dnf -y remove rhn-client-tools subscription-manager flatpak >> /root/dnf-output.log
 #        echo "FULL UPDATE" >> /root/dnf-output.log
 #        dnf -y update >> /root/dnf-output.log
         echo "aroadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -105,7 +105,8 @@ echo "**************************************************************************
 	su -c "mkdir .vnc" - aroadmin
 	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
 #	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
-        wget --quiet --no-check-certificate -P /etc/tigervnc -O https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver-config-defaults
+        rm -f /etc/tigervnc/vncserver-config-defaults
+        wget --quiet --no-check-certificate -P /etc/tigervnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver-config-defaults
         chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
 #        chown aroadmin:aroadmin /home/aroadmin/.vnc/xstartup
         chmod 600 /home/aroadmin/.vnc/passwd
@@ -130,12 +131,12 @@ echo "**************************************************************************
 #	echo "export AZURE_TENANT=$AZ_TENANT_ID" >> /home/aroadmin/.bashrc
 #       su -c "gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true" - aroadmin
 	su -c "ssh-keygen -t rsa -q -P '' -f /home/aroadmin/.ssh/id_rsa" - aroadmin
-        mkdir -p /home/aroadmin/.local/share/keyrings
-	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
-        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
-        chown -R aroadmin:aroadmin /home/aroadmin/.local
-        chmod a+rx /home/aroadmin/.local
-        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
+#        mkdir -p /home/aroadmin/.local/share/keyrings
+#	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
+#        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
+#        chown -R aroadmin:aroadmin /home/aroadmin/.local
+#        chmod a+rx /home/aroadmin/.local
+#        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
 echo "********************************************************************************************"
         cd /usr/local/bin
 	wget -P /usr/local/bin http://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
