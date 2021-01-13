@@ -16,8 +16,8 @@ echo "**************************************************************************
 	timedatectl set-timezone America/Detroit >>/root/provision-script-output.log
 	echo "`date`" >>/root/provision-script-output.log
 echo "********************************************************************************************"
-#	echo "`date` -- Setting Student User password to 'Microsoft'" >>/root/provision-script-output.log
-#	echo "Microsoft" | passwd --stdin aroadmin
+	echo "`date` -- Setting Student User password to 'Microsoft'" >>/root/provision-script-output.log
+	echo "Microsoft" | passwd --stdin aroadmin
 echo "********************************************************************************************"
 	echo "`date` -- Adding aroadmin to wheel group for sudo access'" >>/root/provision-script-output.log
 	usermod -G wheel aroadmin >>/root/provision-script-output.log
@@ -28,7 +28,7 @@ echo "**************************************************************************
 	echo "`date` -- Adding 'deltarpm' and other required RPMs" >>/root/provision-script-output.log
         sed -i "s/=enforcing/=disabled/g" /etc/selinux/config >>/root/provision-script-output.log
         setenforce 0 >>/root/provision-script-output.log
-        echo "plugins=0" >> /etc/dnf/dnf.conf 
+        echo "plugins=1" >> /etc/dnf/dnf.conf 
         sed -i "s/remove=True/remove=False/g" /etc/dnf/dnf.conf
         echo "DRPM INSTALL" >> /root/dnf-output.log
         dnf -y install drpm >> /root/dnf-output.log
@@ -93,8 +93,8 @@ echo "**************************************************************************
 	echo ":1=aroadmin" >> /etc/tigervnc/vncserver.users
 echo "********************************************************************************************"
 	echo "`date` -- Installing noVNC environment" >>/root/provision-script-output.log
-	pip-3.6 install --upgrade pip
-	pip-3.6 install --upgrade numpy
+	pip-3.6 install --upgrade pip >>/root/provision-script-output.log
+	pip-3.6 install --upgrade numpy >>/root/provision-script-output.log
         pip-3.6 install --upgrade websockify >>/root/provision-script-output.log
 	chmod -R a+rx /usr/local/lib64/python3.6/site-packages/numpy*
 	chmod -R a+rx /usr/local/lib/python3.6/site-packages/websockify*
@@ -108,7 +108,7 @@ echo "**************************************************************************
 	su -c "mkdir .vnc" - aroadmin
 	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
 #	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
-       chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
+        chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
 	echo "session=gnome-classic" >> /home/aroadmin/.vnc/config
 	echo "securitytypes=vncauth,tlsvnc" >> /home/aroadmin/.vnc/config
 	echo "desktop=sandbox" >> /home/aroadmin/.vnc/config
@@ -141,8 +141,9 @@ echo "**************************************************************************
 #	echo "export AZURE_TENANT=$AZ_TENANT_ID" >> /home/aroadmin/.bashrc
 #       su -c "gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true" - aroadmin
 	su -c "ssh-keygen -t rsa -q -P '' -f /home/aroadmin/.ssh/id_rsa" - aroadmin
+	su -c "gsettings set org.gnome.desktop.session idle-delay 0" - aroadmin
         mkdir -p /home/aroadmin/.local/share/keyrings
-  	 wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
+	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
         chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
         chown -R aroadmin:aroadmin /home/aroadmin/.local
         chmod a+rx /home/aroadmin/.local
