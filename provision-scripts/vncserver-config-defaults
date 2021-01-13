@@ -1,0 +1,7 @@
+session=gnome-classic
+securitytypes=vncauth,tlsvnc
+desktop=sandbox
+geometry=1600x900
+localhost
+alwaysshared
+

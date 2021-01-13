@@ -91,6 +91,7 @@ echo "**************************************************************************
 echo "********************************************************************************************"
 	echo "`date` -- Installing noVNC environment" >>/root/provision-script-output.log
 	pip-3.6 install --upgrade pip
+	pip-3.6 install --upgrade numpy
         pip-3.6 install --upgrade websockify >>/root/provision-script-output.log
 	chmod -R a+rx /usr/local/lib64/python3.6/site-packages/numpy*
 	chmod -R a+rx /usr/local/lib/python3.6/site-packages/websockify*
@@ -104,6 +105,7 @@ echo "**************************************************************************
 	su -c "mkdir .vnc" - aroadmin
 	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
 #	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
+        wget --quiet --no-check-certificate -P /etc/tigervnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver-config-defaults
         chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
 #        chown aroadmin:aroadmin /home/aroadmin/.vnc/xstartup
         chmod 600 /home/aroadmin/.vnc/passwd
@@ -126,14 +128,14 @@ echo "**************************************************************************
 #	echo "export AZURE_SECRET=$SP_SECRET" >> /home/aroadmin/.bashrc
 #	echo "export AZURE_SUBSCRIPTION_ID=$AZ_SUBSCRIPTION_ID" >> /home/aroadmin/.bashrc
 #	echo "export AZURE_TENANT=$AZ_TENANT_ID" >> /home/aroadmin/.bashrc
-#        su -c "gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true" - aroadmin
+#       su -c "gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true" - aroadmin
 	su -c "ssh-keygen -t rsa -q -P '' -f /home/aroadmin/.ssh/id_rsa" - aroadmin
-#        mkdir -p /home/aroadmin/.local/share/keyrings
-#	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
-#        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
-#        chown -R aroadmin:aroadmin /home/aroadmin/.local
-#        chmod a+rx /home/aroadmin/.local
-#        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
+        mkdir -p /home/aroadmin/.local/share/keyrings
+	wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
+        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
+        chown -R aroadmin:aroadmin /home/aroadmin/.local
+        chmod a+rx /home/aroadmin/.local
+        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
 echo "********************************************************************************************"
         cd /usr/local/bin
 	wget -P /usr/local/bin http://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
