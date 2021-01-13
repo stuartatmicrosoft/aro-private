@@ -82,6 +82,7 @@ echo "**************************************************************************
 	rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
 	wget --quiet -P /etc/yum.repos.d https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/microsoft-edge-dev.repo
+	wget --quiet -P /etc/polkit-1/localauthority/50-local.d https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/45-turbovnc-gnome3.pkla
 	dnf -y install azure-cli >> /root/dnf-output.log
 	dnf -y install microsoft-edge-dev >> /root/dnf-output.log
 echo "********************************************************************************************"	
