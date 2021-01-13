@@ -145,9 +145,15 @@ echo "**************************************************************************
 #        dnf -y update >> /root/dnf-output.log
         echo " " >> /etc/motd
 	echo " " >> /etc/motd
+	echo "******************************************************************************************************" >> /etc/motd
+	echo "******************************************************************************************************" >> /etc/motd
+	echo " " >> /etc/motd
 	echo "To engage the web VNC console to access the ARO private console type:" >> /etc/motd
 	echo "sudo systemctl start websockify" >> /etc/motd
-	echo "systemctl start vncserver@:1" >> /etc/motd
+	echo "sudo systemctl start vncserver@:1" >> /etc/motd
+	echo " " >> /etc/motd
+	echo "******************************************************************************************************" >> /etc/motd
+	echo "******************************************************************************************************" >> /etc/motd
         echo " " >> /etc/motd
 
 
