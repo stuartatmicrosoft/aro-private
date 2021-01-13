@@ -105,7 +105,7 @@ echo "**************************************************************************
 	su -c "mkdir .vnc" - aroadmin
 	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
 #	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
-        wget --quiet --no-check-certificate -P /etc/tigervnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver-config-defaults
+        wget --quiet --no-check-certificate -P /etc/tigervnc -O https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver-config-defaults
         chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
 #        chown aroadmin:aroadmin /home/aroadmin/.vnc/xstartup
         chmod 600 /home/aroadmin/.vnc/passwd
@@ -142,6 +142,13 @@ echo "**************************************************************************
         tar xvfz oc.tar.gz
         rm -f oc.tar.gz
 #        dnf -y update >> /root/dnf-output.log
+        echo " " >> /etc/motd
+	echo " " >> /etc/motd
+	echo "To engage the web VNC console to access the ARO private console type:" >> /etc/motd
+	echo "sudo systemctl start websockify" >> /etc/motd
+	echo "systemctl start vncserver@:1" >> /etc/motd
+        echo " " >> /etc/motd
+
 
 echo "********************************************************************************************"
 
