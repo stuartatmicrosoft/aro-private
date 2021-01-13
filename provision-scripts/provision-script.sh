@@ -103,16 +103,16 @@ echo "**************************************************************************
 #	wget --quiet --no-check-certificate -P /etc/systemd/system "https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver@:4.service"
 	openssl req -x509 -nodes -newkey rsa:2048 -keyout /etc/pki/tls/certs/novnc.pem -out /etc/pki/tls/certs/novnc.pem -days 365 -subj "/C=US/ST=Michigan/L=Ann Arbor/O=AROPrivate/OU=CloudNativeAzure/CN=microsoft.com"
 	su -c "mkdir .vnc" - aroadmin
-#	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
+	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
 #	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
-#       chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
-        su -c "echo Microsoft | vncpasswd -f > /home/aroadmin/.vnc/passwd" - aroadmin
+       chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
 	echo "session=gnome-classic" >> /home/aroadmin/.vnc/config
 	echo "securitytypes=vncauth,tlsvnc" >> /home/aroadmin/.vnc/config
 	echo "desktop=sandbox" >> /home/aroadmin/.vnc/config
 	echo "geometry=1600x900" >> /home/aroadmin/.vnc/config
 	echo "localhost" >> /home/aroadmin/.vnc/config
         echo "alwaysshared" >> /home/aroadmin/.vnc/config
+	chown aroadmin:aroadmin /home/aroadmin/.vnc/config
 	chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
         restorecon -RFv /home/aroadmin/.vnc >> /root/provision-script-output.log
 #        chown aroadmin:aroadmin /home/aroadmin/.vnc/xstartup
