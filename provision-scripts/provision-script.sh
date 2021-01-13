@@ -105,9 +105,15 @@ echo "**************************************************************************
 	su -c "mkdir .vnc" - aroadmin
 	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/passwd
 #	wget --quiet --no-check-certificate -P /home/aroadmin/.vnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/xstartup
-        rm -f /etc/tigervnc/vncserver-config-defaults
-        wget --quiet --no-check-certificate -P /etc/tigervnc https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/vncserver-config-defaults
         chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
+	echo "session=gnome-classic" >> /home/aroadmin/.vnc/config
+	echo "securitytypes=vncauth,tlsvnc" >> /home/aroadmin/.vnc/config
+	echo "desktop=sandbox" >> /home/aroadmin/.vnc/config
+	echo "geometry=1600x900" >> /home/aroadmin/.vnc/config
+	echo "localhost" >> /home/aroadmin/.vnc/config
+        echo "alwaysshared" >> /home/aroadmin/.vnc/config
+	chown aroadmin:aroadmin /home/aroadmin/.vnc/passwd
+
 #        chown aroadmin:aroadmin /home/aroadmin/.vnc/xstartup
         chmod 600 /home/aroadmin/.vnc/passwd
 #        chmod 755 /home/aroadmin/.vnc/xstartup
