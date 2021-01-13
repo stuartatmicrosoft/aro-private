@@ -1,0 +1,5 @@
+[packages.microsoft.com_yumrepos_edge]
+name=created by dnf config-manager from https://packages.microsoft.com/yumrepos/edge
+baseurl=https://packages.microsoft.com/yumrepos/edge
+enabled=1
+

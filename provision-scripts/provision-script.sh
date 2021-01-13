@@ -81,7 +81,9 @@ echo "**************************************************************************
 	echo "`date` -- Installing the Azure Linux CLI" >>/root/provision-script-output.log
 	rpm --import https://packages.microsoft.com/keys/microsoft.asc
 	sh -c 'echo -e "[azure-cli]\nname=Azure CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/azure-cli.repo'
+	wget --quiet -P /etc/yum.repos.d https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/microsoft-edge-dev.repo
 	dnf -y install azure-cli >> /root/dnf-output.log
+	dnf -y install microsoft-edge-dev >> /root/dnf-output.log
 echo "********************************************************************************************"	
 	echo "`date` -- Setting default systemd target to graphical.target" >>/root/provision-script-output.log
         sed -i "s/#Wayland/Wayland/g" /etc/gdm/custom.conf
@@ -138,12 +140,12 @@ echo "**************************************************************************
 #	echo "export AZURE_TENANT=$AZ_TENANT_ID" >> /home/aroadmin/.bashrc
 #       su -c "gconftool-2 -t bool -s /apps/rhsm-icon/hide_icon true" - aroadmin
 	su -c "ssh-keygen -t rsa -q -P '' -f /home/aroadmin/.ssh/id_rsa" - aroadmin
-#        mkdir -p /home/aroadmin/.local/share/keyrings
-#  	 wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
-#        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
-#        chown -R aroadmin:aroadmin /home/aroadmin/.local
-#        chmod a+rx /home/aroadmin/.local
-#        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
+        mkdir -p /home/aroadmin/.local/share/keyrings
+  	 wget --quiet -P /home/aroadmin/.local/share/keyrings https://raw.githubusercontent.com/stuartatmicrosoft/aro-private/master/provision-scripts/Default.keyring
+        chown aroadmin:aroadmin /home/aroadmin/.local/share/keyrings/Default.keyring
+        chown -R aroadmin:aroadmin /home/aroadmin/.local
+        chmod a+rx /home/aroadmin/.local
+        restorecon -Rv /home/aroadmin/.local/share/keyrings/Default.keyring
 echo "********************************************************************************************"
         cd /usr/local/bin
 	wget -P /usr/local/bin http://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
